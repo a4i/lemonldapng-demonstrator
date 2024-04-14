@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: demonstrateur
+  name: demonstrateur
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demonstrateur
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: demonstrateur
+    spec:
+      containers:
+        - image: demonstrateur:1
+          name: demonstrateur
+          imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: demonstrateur
+  name: demonstrateur
+spec:
+  ports:
+  - name: 3001-3000
+    port: 3001
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: demonstrateur
+  type: NodePort
+  sessionAffinity: None
+  ipFamilies:
+    - IPv4

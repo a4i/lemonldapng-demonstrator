@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>En-têtes HTTP</title>
+</head>
+<body>
+<h2>Host: <%= host %></h2>
+ <h3> Remote: <%= remoteAddress %></h3>
+    <h1>En-têtes HTTP reçus</h1>
+    <table border="1">
+        <tr>
+            <th>En-tête</th>
+            <th>Valeur</th>
+        </tr>
+        <% for (const header in headers) { %>
+            <tr>
+                <td><%= header %></td>
+                <td><% if (header === "cookie") {
+                        const cookies = headers[header].split(/[;,]/);
+                        for (const cookie in cookies) { %>
+                    <%= cookies[cookie] %><br>
+                    <% }
+                    } else { %>
+                       <%= headers[header] %>
+                    <% } %></td>
+            </tr>
+        <% } %>
+    </table>
+</body>
+</html>
